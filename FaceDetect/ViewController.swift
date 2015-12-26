@@ -131,10 +131,10 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         cameraImage = CIImage(CVPixelBuffer: pixelBuffer!)
 
-    dispatch_async(dispatch_get_main_queue())
-    {
-        self.imageView.setNeedsDisplay()
-    }
+        dispatch_async(dispatch_get_main_queue())
+        {
+            self.imageView.setNeedsDisplay()
+        }
     }
 }
 
