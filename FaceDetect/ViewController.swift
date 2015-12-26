@@ -51,9 +51,9 @@ class ViewController: UIViewController
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         
-        guard let frontCamera = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-            .filter({ ($0 as? AVCaptureDevice)?.position == AVCaptureDevicePosition.Front })
-            .first as? AVCaptureDevice else
+        guard let frontCamera = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice])
+            .filter({ $0.position == .Front })
+            .first else
         {
             fatalError("Unable to access front camera")
         }

@@ -12,9 +12,9 @@ Here's some festive silliness: CartoonEyes composites cartoon eyeballs over a fa
 I played with applying Core Image filters to a live camera feed earlier this year (see: Applying CIFilters to a Live Camera Feed with Swift). The main difference with this project is that I wanted to use the front camera rather than the default camera. To do this, I use a guard statement to filter the the devices by their position and pick the first item of that filter as my device:
 
 ```swift
-    guard let frontCamera = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-        .filter({ ($0 as? AVCaptureDevice)?.position == AVCaptureDevicePosition.Front })
-        .first as? AVCaptureDevice else
+    guard let frontCamera = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice])
+    .filter({ $0.position == .Front })
+    .first else
     {
         fatalError("Unable to access front camera")
     }
