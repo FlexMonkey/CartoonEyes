@@ -12,6 +12,7 @@
 		3E5104FB1C2C297800CEC622 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5104F91C2C297800CEC622 /* Main.storyboard */; };
 		3E5104FD1C2C297800CEC622 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E5104FC1C2C297800CEC622 /* Assets.xcassets */; };
 		3E5105001C2C297800CEC622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E5104FE1C2C297800CEC622 /* LaunchScreen.storyboard */; };
+		3E5105081C2E6A9100CEC622 /* eyeball.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5105071C2E6A9100CEC622 /* eyeball.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		3E5104FC1C2C297800CEC622 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E5104FF1C2C297800CEC622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E5105011C2C297800CEC622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E5105071C2E6A9100CEC622 /* eyeball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyeball.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		3E5104F41C2C297800CEC622 /* FaceDetect */ = {
 			isa = PBXGroup;
 			children = (
+				3E5105071C2E6A9100CEC622 /* eyeball.png */,
 				3E5104F51C2C297800CEC622 /* AppDelegate.swift */,
 				3E5104F71C2C297800CEC622 /* ViewController.swift */,
 				3E5104F91C2C297800CEC622 /* Main.storyboard */,
@@ -124,6 +127,7 @@
 			files = (
 				3E5105001C2C297800CEC622 /* LaunchScreen.storyboard in Resources */,
 				3E5104FD1C2C297800CEC622 /* Assets.xcassets in Resources */,
+				3E5105081C2E6A9100CEC622 /* eyeball.png in Resources */,
 				3E5104FB1C2C297800CEC622 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +257,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.FaceDetect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -264,6 +269,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.FaceDetect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
