@@ -94,18 +94,19 @@ class ViewController: UIViewController
         let halfEyeWidth = eyeballImage.extent.width / 2
         let halfEyeHeight = eyeballImage.extent.height / 2
         
-        if let features = detector.featuresInImage(cameraImage).first as? CIFaceFeature where leftEye ? features.hasLeftEyePosition : features.hasRightEyePosition
+        if let features = detector.featuresInImage(cameraImage).first as? CIFaceFeature
+            where leftEye ? features.hasLeftEyePosition : features.hasRightEyePosition
         {
-            let leftEyePosition = CGAffineTransformMakeTranslation(
+            let eyePosition = CGAffineTransformMakeTranslation(
                 leftEye ? features.leftEyePosition.x - halfEyeWidth : features.rightEyePosition.x - halfEyeWidth,
                 leftEye ? features.leftEyePosition.y - halfEyeHeight : features.rightEyePosition.y - halfEyeHeight)
             
             transformFilter.setValue(eyeballImage, forKey: "inputImage")
-            transformFilter.setValue(NSValue(CGAffineTransform: leftEyePosition), forKey: "inputTransform")
-            let leftTransformResult = transformFilter.valueForKey("outputImage") as! CIImage
-            
+            transformFilter.setValue(NSValue(CGAffineTransform: eyePosition), forKey: "inputTransform")
+            let transformResult = transformFilter.valueForKey("outputImage") as! CIImage
+                
             compositingFilter.setValue(backgroundImage, forKey: kCIInputBackgroundImageKey)
-            compositingFilter.setValue(leftTransformResult, forKey: kCIInputImageKey)
+            compositingFilter.setValue(transformResult, forKey: kCIInputImageKey)
             
             return  compositingFilter.valueForKey("outputImage") as! CIImage
         }
@@ -130,10 +131,10 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         cameraImage = CIImage(CVPixelBuffer: pixelBuffer!)
 
-        dispatch_async(dispatch_get_main_queue())
-        {
-            self.imageView.setNeedsDisplay()
-        }
+    dispatch_async(dispatch_get_main_queue())
+    {
+        self.imageView.setNeedsDisplay()
+    }
     }
 }
 
@@ -148,13 +149,15 @@ extension ViewController: GLKViewDelegate
 
         let leftEyeImage = eyeImage(cameraImage, backgroundImage: cameraImage, leftEye: true)
         let rightEyeImage = eyeImage(cameraImage, backgroundImage: leftEyeImage, leftEye: false)
- 
+     
         comicEffect.setValue(rightEyeImage, forKey: kCIInputImageKey)
         
         let outputImage = comicEffect.valueForKey(kCIOutputImageKey) as! CIImage
 
         ciContext.drawImage(outputImage,
-            inRect: CGRect(x: 0, y: 0, width: imageView.drawableWidth, height: imageView.drawableHeight),
+            inRect: CGRect(x: 0, y: 0,
+                width: imageView.drawableWidth,
+                height: imageView.drawableHeight),
             fromRect: outputImage.extent)
     }
 }
