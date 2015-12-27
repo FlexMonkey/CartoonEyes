@@ -46,14 +46,15 @@ class ViewController: UIViewController
         imageView.delegate = self
     }
 
+    let captureSession = AVCaptureSession()
+
     func initialiseCaptureSession()
     {
-        let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSessionPresetPhoto
         
-        guard let frontCamera = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-            .filter({ ($0 as? AVCaptureDevice)?.position == AVCaptureDevicePosition.Front })
-            .first as? AVCaptureDevice else
+        guard let frontCamera = (AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice])
+            .filter({ $0.position == .Front })
+            .first else
         {
             fatalError("Unable to access front camera")
         }
@@ -68,10 +69,7 @@ class ViewController: UIViewController
         {
             fatalError("Unable to access front camera")
         }
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        view.layer.addSublayer(previewLayer)
-        
+
         let videoOutput = AVCaptureVideoDataOutput()
         
         videoOutput.setSampleBufferDelegate(self, queue: dispatch_queue_create("sample buffer delegate", DISPATCH_QUEUE_SERIAL))
@@ -131,10 +129,10 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         cameraImage = CIImage(CVPixelBuffer: pixelBuffer!)
 
-    dispatch_async(dispatch_get_main_queue())
-    {
-        self.imageView.setNeedsDisplay()
-    }
+        dispatch_async(dispatch_get_main_queue())
+        {
+            self.imageView.setNeedsDisplay()
+        }
     }
 }
 
