@@ -14,9 +14,14 @@ import CoreMedia
 class ViewController: UIViewController
 {
     let eaglContext = EAGLContext(API: .OpenGLES2)
+    let captureSession = AVCaptureSession()
+    
+    let imageView = GLKView()
     
     let comicEffect = CIFilter(name: "CIComicEffect")!
     let eyeballImage = CIImage(image: UIImage(named: "eyeball.png")!)!
+    
+    var cameraImage: CIImage?
     
     lazy var ciContext: CIContext =
     {
@@ -29,12 +34,13 @@ class ViewController: UIViewController
     {
         [unowned self] in
         
-        CIDetector(ofType: CIDetectorTypeFace, context: self.ciContext, options: nil)
+        CIDetector(ofType: CIDetectorTypeFace,
+            context: self.ciContext,
+            options: [
+                CIDetectorAccuracy: CIDetectorAccuracyHigh,
+                CIDetectorTracking: true])
     }()
-    
-    let imageView = GLKView()
-    var cameraImage: CIImage?
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -46,7 +52,7 @@ class ViewController: UIViewController
         imageView.delegate = self
     }
 
-    let captureSession = AVCaptureSession()
+    
 
     func initialiseCaptureSession()
     {
