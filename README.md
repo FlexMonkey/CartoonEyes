@@ -7,7 +7,7 @@ Companion project to: http://flexmonkey.blogspot.co.uk/2015/12/cartooneyes-compo
 
 Here's some festive silliness: CartoonEyes composites cartoon eyeballs over a face captured by an iOS devices's front camera and then passes that composite through a Core Image Comic Effect filter. It makes use of Core Image's face detection class, `CIDetector`, to find the positions of the eyes.
 
-##Capturing Video from Front Camera
+## Capturing Video from Front Camera
 
 I played with applying Core Image filters to a live camera feed earlier this year (see: Applying CIFilters to a Live Camera Feed with Swift). The main difference with this project is that I wanted to use the front camera rather than the default camera. To do this, I use a guard statement to filter the the devices by their position and pick the first item of that filter as my device:
 
@@ -20,7 +20,7 @@ I played with applying Core Image filters to a live camera feed earlier this yea
     }
 ```    
 
-##Compositing Cartoon Eyes
+## Compositing Cartoon Eyes
 
 Once I have the source image from the camera, it's time to composite the cartoon eyes over it. My function, `eyeImage()`, takes the original camera image (to calculate  the eye positions), an image to composite the eye over and a Boolean indicating whether it's looking at the left or right eye:
 
@@ -107,7 +107,7 @@ Finally I composite the transformed cartoon eye over the supplied background ima
 
 If there were no facial features detected, I simply return the background image as it was supplied.
 
-##Displaying Output with OpenGL ES
+## Displaying Output with OpenGL ES
 
 Rather than converting the output to a `UIImage` and displaying it in a `UIImageView`, this project takes the more direct route and renders the output using a `GLKView`. Once the captureOutput method of my `AVCaptureVideoDataOutputSampleBufferDelegate` has its image, it invalidates the `GLKView`'s display in a foreground thread:
 
@@ -135,7 +135,7 @@ Since my view controller is the `GLKView`'s `GLKViewDelegate`, this invokes `glk
         fromRect: outputImage.extent)
 ```
 
-##Conclusion
+## Conclusion
 
 With very little work, the combination of Core Image filters and detectors combined with AV Capture Session has allowed me to composite different images based on the positions of different facial features. 
 
